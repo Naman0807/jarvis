@@ -1,0 +1,23 @@
+{
+    "press alter tab": {
+        "status": "learned",
+        "timestamp": "2025-05-28 11:11:28.105157",
+        "attempts": 0,
+        "solution": "To handle the \"press alter tab\" command, follow these implementation details:\n\n1. **Interpret the command**: In your speech recognition module, recognize \"press alter tab\" as a command.\n2. **Map to system function**: Map this command to the system function for switching windows/tasks, usually **Alt + Tab**.\n3. **Implement keyboard simulation**: Use a library or module that can send simulated keystrokes to the system. For example, in Python, you can use `pyautogui` or `keyboard` libraries.\n4. **Send keystroke sequence**: Program the simulated keyboard to send the **Alt + Tab** sequence when the command is received.\n\nExample Python code using `pyautogui`:\n```\nimport pyautogui\n\ndef handle_press_alter_tab():\n    pyautogui.keyDown('alt')\n    pyautogui.press('tab')\n    pyautogui.keyUp('alt')\n```\nIntegrate this function with your AI assistant's command handling system, and you're done!",
+        "learned_timestamp": "2025-05-28 11:11:29.188325"
+    },
+    "take a screenshot": {
+        "status": "learned",
+        "timestamp": "2025-05-28 12:22:39.594575",
+        "attempts": 0,
+        "solution": "Here is the Python code to handle the \"take a screenshot\" command:\n\n```python\nimport pyautogui\n\ndef take_screenshot():\n    image = pyautogui.screenshot()\n    image.save('screenshot.png')\n\ntake_screenshot()\n```\n\nSave this code in a Python file (e.g., `screenshot.py`). When you run this script, it will take a screenshot and save it as `screenshot.png` in the same directory.",
+        "learned_timestamp": "2025-05-28 12:22:40.178730"
+    },
+    "find picture folder in file manager": {
+        "status": "learned",
+        "timestamp": "2025-05-28 12:23:45.709454",
+        "attempts": 0,
+        "solution": "Here's the step-by-step implementation:\n\n**Step 1: Import required modules**\n```python\nimport os\nimport pyautogui\n```\n**Step 2: Open File Manager**\n```python\npyautogui.press('winleft')\npyautogui.typewrite('file explorer')\npyautogui.press('enter')\n```\n**Step 3: Navigate to Pictures Folder**\n```python\npyautogui.typewrite(os.path.join(os.environ['USERPROFILE'], 'Pictures'))\npyautogui.press('enter')\n```\n**Final Code:**\n```python\nimport os\nimport pyautogui\n\npyautogui.press('winleft')\npyautogui.typewrite('file explorer')\npyautogui.press('enter')\npyautogui.typewrite(os.path.join(os.environ['USERPROFILE'], 'Pictures'))\npyautogui.press('enter')\n```\nThis code will open the File Manager, navigate to the Pictures folder, and select it.",
+        "learned_timestamp": "2025-05-28 12:23:46.616310"
+    }
+}
