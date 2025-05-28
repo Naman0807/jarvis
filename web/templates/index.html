@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JARVIS Configuration</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>JARVIS AI Assistant Configuration</h1>
+            <div class="jarvis-logo">
+                <div class="jarvis-circle"></div>
+            </div>
+        </header>
+
+        <form method="POST" action="{{ url_for('save_config') }}">
+            <div class="config-section">
+                <h2>API Keys</h2>
+                <div class="form-group">
+                    <label for="groq_api_key">Groq API Key:</label>
+                    <input type="password" id="groq_api_key" name="groq_api_key" value="{{ groq_api_key }}">
+                    <button type="button" class="toggle-password" onclick="togglePassword('groq_api_key')">👁️</button>
+                </div>
+                <div class="form-group">
+                    <label for="gemini_api_key">Gemini API Key:</label>
+                    <input type="password" id="gemini_api_key" name="gemini_api_key" value="{{ gemini_api_key }}">
+                    <button type="button" class="toggle-password"
+                        onclick="togglePassword('gemini_api_key')">👁️</button>
+                </div>
+                <div class="form-group">
+                    <label for="openai_api_key">OpenAI API Key:</label>
+                    <input type="password" id="openai_api_key" name="openai_api_key" value="{{ openai_api_key }}">
+                    <button type="button" class="toggle-password"
+                        onclick="togglePassword('openai_api_key')">👁️</button>
+                </div>
+            </div>
+
+            <div class="config-section">
+                <h2>Voice Settings</h2>
+                <div class="form-group">
+                    <label for="voice_rate">Voice Rate:</label>
+                    <input type="range" id="voice_rate" name="voice_rate" min="100" max="300" value="{{ voice_rate }}"
+                        oninput="updateSliderValue('voice_rate_value', this.value)">
+                    <span id="voice_rate_value">{{ voice_rate }}</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="voice_volume">Voice Volume:</label>
+                    <input type="range" id="voice_volume" name="voice_volume" min="0" max="3" step="0.1"
+                        value="{{ voice_volume }}" oninput="updateSliderValue('voice_volume_value', this.value)">
+                    <span id="voice_volume_value">{{ voice_volume }}</span>
+                </div>
+            </div>
+
+            <div class="config-section">
+                <h2>Web Search Settings</h2>
+                <div class="form-group">
+                    <label for="default_search_engine">Default Search Engine URL:</label>
+                    <input type="text" id="default_search_engine" name="default_search_engine"
+                        value="{{ default_search_engine }}">
+                </div>
+            </div>
+
+            <div class="config-section">
+                <h2>Vision Settings</h2>
+                <div class="form-group">
+                    <label for="webcam_index">Webcam Index:</label>
+                    <input type="number" id="webcam_index" name="webcam_index" min="0" max="10"
+                        value="{{ webcam_index }}">
+                    <button type="button" onclick="testWebcam()">Test Webcam</button>
+                </div>
+            </div>
+
+            <div class="config-section">
+                <h2>Application Paths</h2>
+                <p>Configure shortcuts for applications JARVIS can open</p>
+                <div id="applications-container">
+                    <!-- Application entries will be added here dynamically -->
+                    {% for app_name, app_command in applications.items() %}
+                    <div class="app-entry">
+                        <input type="text" name="app_name_{{ loop.index }}" value="{{ app_name }}"
+                            placeholder="App Name">
+                        <input type="text" name="app_command_{{ loop.index }}" value="{{ app_command }}"
+                            placeholder="Command">
+                        <button type="button" class="remove-app" onclick="removeApp(this)">×</button>
+                    </div>
+                    {% endfor %}
+                </div>
+                <button type="button" onclick="addApp()">Add Application</button>
+            </div>
+
+            <div class="actions">
+                <button type="submit" class="primary-btn">Save Configuration</button>
+                <button type="button" class="secondary-btn" onclick="testJarvis()">Test JARVIS</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Webcam Test Modal -->
+    <div id="webcam-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeWebcamTest()">&times;</span>
+            <h2>Webcam Test</h2>
+            <video id="webcam" width="640" height="480" autoplay></video>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+
+</html>
